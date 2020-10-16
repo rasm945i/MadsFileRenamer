@@ -4,41 +4,22 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Scanner;
 
 public class ImageRenamer {
 
     private int id;
-    private String path;
+    private File directory;
 
-    public ImageRenamer(int id, String path) {
+    public ImageRenamer(int id, File directory) {
         this.id = id;
-        this.path = path;
+        this.directory = directory;
     }
 
     public void renameAllFiles() {
 
-        File dir = new File(path);
-        if(!dir.isDirectory()) {
-            System.out.println("Path is not a directory, cancelling!");
-            return;
-        }
-
-        File[] files = dir.listFiles();
+        File[] files = directory.listFiles();
         if(files == null) {
-            System.out.println("The directory contained no files!");
-            return;
-        }
-
-        for(File f : files) {
-            System.out.println(f.getName());
-        }
-        System.out.println("The path is a directory, do you wish to rename the following " + files.length + " files? (y/n)");
-
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.next();
-        if(!input.equalsIgnoreCase("y") && !input.equalsIgnoreCase("yes")) {
-            System.out.println("Cancelling renaming! No names has been changed.");
+            System.out.println("No files found, files[] is null!");
             return;
         }
 
